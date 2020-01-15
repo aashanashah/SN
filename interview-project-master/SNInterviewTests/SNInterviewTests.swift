@@ -33,4 +33,11 @@ class SNInterviewTests: XCTestCase {
         XCTAssertTrue(reviews.first?.name == "Lofty")
         XCTAssertTrue(reviews.first?.rating == 4)
     }
+    
+    func testMapingFromDict() {
+        let mappedData = testViewModel.mapToCoffeeShop(from: ["name": "hello", "review": "world", "rating": "3"])
+        XCTAssertTrue(mappedData.name == "hello")
+        XCTAssertTrue(mappedData.review == "world")
+        XCTAssertTrue(mappedData.rating == 3)
+    }
 }
