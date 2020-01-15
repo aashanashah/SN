@@ -7,16 +7,6 @@
 
 import UIKit
 
-struct CoffeeShop {
-    let name: String
-    let review: String
-    let rating: Int
-}
-
-protocol CoffeeShopTapDelegate {
-    func didSelectItem(_ item: UIView?)
-}
-
 class ViewController: UIViewController {
     var delegate: CoffeeShopTapDelegate!
     
