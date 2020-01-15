@@ -20,6 +20,8 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        viewModel.delegate = self
+        
         // registering nib to be used for tableview reusable cell
         tableView.register(UINib(nibName: "CoffeeShopItemTableViewCell", bundle: nil), forCellReuseIdentifier: coffeeShopCellIdentifier)
     }
@@ -43,5 +45,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Item tapped: \(viewModel.reviews[indexPath.row])")
+    }
+}
+
+extension ViewController: CoffeeShopViewModelDelegate {
+    func notifyDataChange() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

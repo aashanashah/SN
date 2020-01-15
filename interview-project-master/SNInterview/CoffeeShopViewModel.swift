@@ -15,8 +15,21 @@ struct CoffeeShop {
     let rating: Int
 }
 
+// if the data is being changed, added a delegate to notify to the viewcontroller that the data was updated
+protocol CoffeeShopViewModelDelegate: class {
+    func notifyDataChange()
+}
+
 class CoffeeShopViewModel: NSObject {
-    var reviews: [CoffeeShop]!
+    // made weak to avoid retain cycles
+    weak var delegate: CoffeeShopViewModelDelegate?
+    
+    // if reviews change, notify it
+    var reviews = [CoffeeShop]() {
+        didSet {
+            delegate?.notifyDataChange()
+        }
+    }
     
     override init() {
         super.init()
@@ -40,6 +53,7 @@ class CoffeeShopViewModel: NSObject {
             }
         }
         
+        delegate?.notifyDataChange()
         return fetchedReviews
     }
     
