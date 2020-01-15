@@ -20,7 +20,7 @@ protocol CoffeeShopTapDelegate {
 class ViewController: UIViewController {
     var delegate: CoffeeShopTapDelegate!
     
-    @IBOutlet private weak var stackView: UIStackView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private let reviews = [
         CoffeeShop(name:"Lofty", review: "Knowledgeable staff, stacked menu. Trust the Ethiopian in a pour over if you know your flavors. Will be back for the rest of this menu soon.", rating: 4),
@@ -33,6 +33,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         reviews.forEach { coffeeShop in
             guard let containerView = CoffeeShopItemView.fromNib() as? CoffeeShopItemView else {
                 fatalError("Failed loading CoffeeShopItemView")
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
             containerView.nameLabel.text = coffeeShop.name
             containerView.reviewLabel.text = coffeeShop.review
             containerView.ratingLabel.text = "Rating: \(Int(coffeeShop.rating))"
-            stackView.addArrangedSubview(containerView)
+            
             containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
         }
         
@@ -51,6 +54,20 @@ class ViewController: UIViewController {
     @objc
     func onTap(item: UIView) {
         delegate.didSelectItem(nil)
+    }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviews.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
