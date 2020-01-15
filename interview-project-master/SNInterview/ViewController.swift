@@ -42,7 +42,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        reviewCell.nameLabel.text = "test \(indexPath.row)"
+        reviewCell.configureCell(with: viewModel.reviews[indexPath.row])
+        
         return reviewCell
     }
     
