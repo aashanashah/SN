@@ -34,8 +34,10 @@ class CoffeeShopViewModel: NSObject {
             do {
                 let fetchedData = try Data(contentsOf: url, options: .mappedIfSafe)
                 let jsonData = try JSONSerialization.jsonObject(with: fetchedData, options: [])
-                if let jsonArray = jsonData as? [[String: Any]] {
-                    print(jsonArray)
+                if let arrayDict = jsonData as? [[String: Any]] {
+                    for review in arrayDict {
+                        fetchedReviews.append(mapToCoffeeShop(from: review))
+                    }
                 }
             } catch {
                 print("error fetching data")
