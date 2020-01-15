@@ -29,6 +29,18 @@ class CoffeeShopViewModel: NSObject {
     
     func fetchReviews() -> [CoffeeShop] {
         var fetchedReviews = [CoffeeShop]()
+        if let filePath = Bundle.main.path(forResource: "CoffeeShops", ofType: "json") {
+            let url = URL(fileURLWithPath: filePath)
+            do {
+                let fetchedData = try Data(contentsOf: url, options: .mappedIfSafe)
+                print(url)
+                print(filePath)
+                print("\(fetchedData)")
+            } catch {
+                print("error fetching data")
+            }
+        }
+        
         return fetchedReviews
     }
 }
