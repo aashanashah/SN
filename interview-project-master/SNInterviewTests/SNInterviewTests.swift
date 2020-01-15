@@ -10,6 +10,8 @@ import XCTest
 
 class SNInterviewTests: XCTestCase {
 
+    let testViewModel =  CoffeeShopViewModel()
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -26,6 +28,9 @@ class SNInterviewTests: XCTestCase {
     }
     
     func testLoadFromJSON() {
-        // TODO: load coffee shops from json and make sure they are loaded correctly
+        let reviews = testViewModel.fetchReviews()
+        XCTAssertTrue(reviews.count == 5)
+        XCTAssertTrue(reviews.first?.name == "Lofty")
+        XCTAssertTrue(reviews.first?.rating == 4)
     }
 }
