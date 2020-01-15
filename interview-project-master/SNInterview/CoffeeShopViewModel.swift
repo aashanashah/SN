@@ -33,9 +33,10 @@ class CoffeeShopViewModel: NSObject {
             let url = URL(fileURLWithPath: filePath)
             do {
                 let fetchedData = try Data(contentsOf: url, options: .mappedIfSafe)
-                print(url)
-                print(filePath)
-                print("\(fetchedData)")
+                let jsonData = try JSONSerialization.jsonObject(with: fetchedData, options: [])
+                if let jsonArray = jsonData as? [[String: Any]] {
+                    print(jsonArray)
+                }
             } catch {
                 print("error fetching data")
             }
